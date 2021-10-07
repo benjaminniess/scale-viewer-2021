@@ -43,5 +43,12 @@ class FortifyServiceProvider extends ServiceProvider
         RateLimiter::for('two-factor', function (Request $request) {
             return Limit::perMinute(5)->by($request->session()->get('login.id'));
         });
+
+        // Stolen from Tuto to disable the auto login after registration
+        // https://dev.to/frknasir/fortify-how-to-disable-auto-login-after-user-registration-4kf4
+        $this->app->singleton(
+            \Laravel\Fortify\Contracts\RegisterResponse::class,
+            \App\Http\Responses\RegisterResponse::class,
+        );
     }
 }

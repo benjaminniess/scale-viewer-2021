@@ -51,4 +51,12 @@ class RegistrationTest extends TestCase
 
         $response->assertStatus(201);
     }
+
+    public function test_registration_fails_when_email_exists()
+    {
+        $this->postJson('api/register', ['email' => 'benj@min.com', 'name' => 'Benjamin', 'password' => '123456789', 'password_confirmation' => '123456789']);
+        $response = $this->postJson('api/register', ['email' => 'benj@min.com', 'name' => 'Benjamin', 'password' => '123456789', 'password_confirmation' => '123456789']);
+
+        $response->assertStatus(422);
+    }
 }
