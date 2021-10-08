@@ -53,4 +53,25 @@ class LoginTest extends TestCase
 
 		$response->assertStatus(200);
 	}
+
+	public function test_reaching_user_endpoint_without_credentials()
+	{
+		$response = $this->getJson('/api/user');
+
+		$response->assertStatus(401);
+	}
+
+	public function test_reaching_user_endpoint_with_correct_credentials()
+	{
+		$this->postJson('api/register', $this->correctUserRegisterData);
+		$login_request = $this->postJson('/api/login', $this->correctUserCredentials);
+
+		$response = $this->withHeaders([
+			'Authorization' => 'Bearer ' . $login_request->content()
+		])->getJson('/api/user');
+
+		$response->assertStatus(200);
+		$response->assertJsonPath('name', $this->correctUserRegisterData['name']);
+		$response->assertJsonPath('email', $this->correctUserRegisterData['email']);
+	}
 }
