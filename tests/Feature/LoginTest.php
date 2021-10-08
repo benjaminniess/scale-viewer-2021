@@ -70,8 +70,29 @@ class LoginTest extends TestCase
 			'Authorization' => 'Bearer ' . $login_request->content()
 		])->getJson('/api/user');
 
-		$response->assertStatus(200);
-		$response->assertJsonPath('name', $this->correctUserRegisterData['name']);
-		$response->assertJsonPath('email', $this->correctUserRegisterData['email']);
-	}
+        $response->assertStatus(200);
+        $response->assertJsonPath('name', $this->correctUserRegisterData['name']);
+        $response->assertJsonPath('email', $this->correctUserRegisterData['email']);
+    }
+
+    public function test_logging_out_endpoint_fails_when_not_logged()
+    {
+        $response = $this->getJson('/api/logout');
+
+        $response->assertStatus(401);
+        $response->assertJsonFragment(['message' => 'Unauthenticated.']);
+    }
+
+    public function test_logging_out_endpoint_success_when_logged()
+    {
+        $this->postJson('api/register', $this->correctUserRegisterData);
+        $login_request = $this->postJson('/api/login', $this->correctUserCredentials);
+
+        $response = $this->withHeaders([
+            'Authorization' => 'Bearer ' . $login_request->content()
+        ])->getJson('/api/logout');
+
+        $response->assertStatus(200);
+        $response->assertSee('logged-out');
+    }
 }

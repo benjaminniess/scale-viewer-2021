@@ -43,3 +43,9 @@ Route::post('/login', function (Request $request) {
 
 	return $user->createToken($request->device_name)->plainTextToken;
 })->middleware(['guest']);
+
+Route::middleware('auth:sanctum')->get('/logout', function (Request $request) {
+    $request->user()->currentAccessToken()->delete();
+
+    return response('logged-out', 200);
+});
