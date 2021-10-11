@@ -4,7 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Http\Controllers\RegisteredUserController;
 use App\Http\Controllers\UsersController;
-
+use App\Http\Controllers\BoardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,3 +21,5 @@ Route::middleware('auth:sanctum')->get('/user', [UsersController::class, 'show']
 Route::middleware('guest')->post('/register', [RegisteredUserController::class, 'store']);
 Route::middleware('guest')->post('/login', [UsersController::class, 'login']);
 Route::middleware('auth:sanctum')->get('/logout', [UsersController::class, 'logout']);
+
+Route::get('boards', [BoardController::class, 'index']);
