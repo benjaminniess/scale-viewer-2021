@@ -24,6 +24,7 @@ class BoardFactory extends Factory
         return [
             'title' => $this->faker->sentence(),
             'description' => $this->faker->paragraph(),
+            'user_id' => 0,
         ];
     }
 }
