@@ -43,10 +43,9 @@ class BoardsListTest extends TestCase
 
     public function test_a_board_has_a_user_id(): void
     {
-        Board::factory()->for(User::factory())->create();
+        $board = Board::factory()->for(User::factory())->create();
 
         $response = $this->get('/api/boards');
-
-        $response->assertJsonPath('0.user_id', 1);
+        $response->assertJsonPath('0.user_id', $board->user_id);
     }
 }
