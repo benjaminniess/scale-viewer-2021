@@ -13,6 +13,12 @@ class BoardController extends Controller
      */
     public function index()
     {
-        return Board::all();
+        return Board::without('numbers')->get();
     }
+
+    public function show(Board $board): Board
+    {
+        return $board;
+    }
+
 }

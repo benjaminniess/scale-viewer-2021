@@ -123,6 +123,88 @@ Run the migration command optionally with the `--seed` param
 
     "logged-out"
 
+### Get the boards list
+
+#### Request
+
+`GET /api/boards`
+
+    curl -X GET \
+    http://localhost:8000/api/boards \
+    -H 'Accept: application/json' \
+
+#### Response
+
+    HTTP/1.1 200 OK
+    Status: 200 OK
+    Connection: close
+    Content-Type: application/json
+
+    [
+        {
+            "id": 1,
+            "title": "Quis laboriosam porro sapiente eum tenetur inventore qui.",
+            "description": "Nihil eius nihil exercitationem sed repudiandae. Asperiores non eos excepturi autem velit. Quibusdam voluptatum necessitatibus sunt ex.",
+            "user_id": 1,
+            "created_at": "2021-10-13T13:00:16.000000Z",
+            "updated_at": "2021-10-13T13:00:16.000000Z"
+        },
+        {
+            "id": 2,
+            "title": "Distinctio adipisci earum voluptates voluptatem est.",
+            "description": "Praesentium maxime est temporibus debitis voluptatem. Ab in delectus eveniet voluptatem voluptatibus occaecati aliquid. Harum commodi harum voluptatem fugit provident alias quasi. Sunt quibusdam cum molestiae quasi.",
+            "user_id": 1,
+            "created_at": "2021-10-13T13:00:16.000000Z",
+            "updated_at": "2021-10-13T13:00:16.000000Z"
+        },
+        { ... }
+    ]
+
+### Get a single board with related numbers
+
+#### Request
+
+`GET /api/boards/1`
+
+    curl -X GET \
+    http://localhost:8000/api/boards/1 \
+    -H 'Accept: application/json' \
+
+#### Response
+
+    HTTP/1.1 200 OK
+    Status: 200 OK
+    Connection: close
+    Content-Type: application/json
+
+    {
+        "id": 1,
+        "title": "Est provident laudantium qui eum recusandae itaque.",
+        "description": "Quidem nesciunt tempora sunt quod. Vero quae sit et modi sed iste laudantium. Aut corporis quo sit earum velit velit corrupti. Corporis saepe natus velit. Molestiae blanditiis autem reprehenderit quas culpa rerum saepe.",
+        "user_id": 1,
+        "created_at": "2021-10-13T13:18:43.000000Z",
+        "updated_at": "2021-10-13T13:18:43.000000Z",
+        "numbers": [
+            {
+                "id": 1,
+                "value": 64287,
+                "description": "Quisquam minus delectus explicabo. Nam facilis commodi voluptas nostrum qui id voluptatem voluptas. Est modi corrupti omnis autem. Qui perferendis omnis perferendis distinctio perferendis labore.",
+                "board_id": 1,
+                "created_at": "2021-10-13T13:18:43.000000Z",
+                "updated_at": "2021-10-13T13:18:43.000000Z"
+            },
+            {
+                "id": 2,
+                "value": 57438,
+                "description": "Sint labore fugiat et omnis recusandae minima soluta. Id illum quibusdam nesciunt praesentium. Ipsam autem nisi porro et distinctio. Tempore harum sunt odio nemo. Itaque cum ea et quam qui et laborum.",
+                "board_id": 1,
+                "created_at": "2021-10-13T13:18:43.000000Z",
+                "updated_at": "2021-10-13T13:18:43.000000Z"
+            },
+            {...}
+        ]
+    }
+
 ## Tests
 
 Run

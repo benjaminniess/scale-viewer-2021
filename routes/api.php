@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Http\Controllers\RegisteredUserController;
 use App\Http\Controllers\UsersController;
@@ -23,3 +22,4 @@ Route::middleware('guest')->post('/login', [UsersController::class, 'login']);
 Route::middleware('auth:sanctum')->get('/logout', [UsersController::class, 'logout']);
 
 Route::get('boards', [BoardController::class, 'index']);
+Route::get('boards/{board}', [BoardController::class, 'show']);
