@@ -5,6 +5,34 @@
 This project is just a sandbox so far. The long time goal of the project is to manage different scaled numbers on a
 single board.
 
+# TODO
+
+### Accounts
+
+- Forgot password
+- Update password
+- Delete account
+
+### Boards
+
+- Update board
+- Delete board
+- Pagination
+
+### Numbers
+
+- Add numbers
+- Update numbers
+- Reorder numbers
+- Delete numbers
+- Add a "display value" to numbers
+
+### Generic
+
+- Cache
+- Front end app
+- Repositories
+
 ## Installation
 
 Install dependencies
