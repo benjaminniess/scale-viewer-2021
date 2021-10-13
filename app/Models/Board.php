@@ -9,8 +9,15 @@ class Board extends Model
 {
     use HasFactory;
 
-    public function user()
+    protected $with = ['numbers'];
+
+    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function numbers(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Number::class);
     }
 }
