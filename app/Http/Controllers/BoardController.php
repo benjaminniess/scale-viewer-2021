@@ -4,13 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Board;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class BoardController extends Controller
 {
 
-    /**
-     * @return Board[]|\Illuminate\Database\Eloquent\Collection
-     */
     public function index()
     {
         return Board::without('numbers')->get();
@@ -21,4 +19,21 @@ class BoardController extends Controller
         return $board;
     }
 
+    public function store(Request $request)
+    {
+        $request->validate([
+            'title' => ['required', 'max:90'],
+            'description' => 'required',
+        ]);
+
+        $board = new Board();
+
+        $board->title = $request->title;
+        $board->description = $request->description;
+        $board->user_id = Auth::id();
+
+        $board->save();
+
+        return response('Board created', 201);
+    }
 }

@@ -23,3 +23,5 @@ Route::middleware('auth:sanctum')->get('/logout', [UsersController::class, 'logo
 
 Route::get('boards', [BoardController::class, 'index']);
 Route::get('boards/{board}', [BoardController::class, 'show']);
+
+Route::middleware('auth:sanctum')->post('boards', [BoardController::class, 'store']);
