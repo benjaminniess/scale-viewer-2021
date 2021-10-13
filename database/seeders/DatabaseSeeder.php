@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 
 use App\Models\Board;
+use App\Models\Number;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -12,6 +13,6 @@ class DatabaseSeeder extends Seeder
 
     public function run(): void
     {
-        Board::factory()->count(10)->for(User::factory())->create();
+        Board::factory()->count(10)->for(User::factory())->hasNumbers(10)->create();
     }
 }
