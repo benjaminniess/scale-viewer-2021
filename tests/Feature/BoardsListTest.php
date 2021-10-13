@@ -7,7 +7,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 use App\Models\Board;
 
-class BoardsTest extends TestCase
+class BoardsListTest extends TestCase
 {
     use RefreshDatabase;
 
