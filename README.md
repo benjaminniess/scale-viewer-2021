@@ -205,6 +205,26 @@ Run the migration command optionally with the `--seed` param
         ]
     }
 
+### Insert a new empty board
+
+#### Request
+
+`POST /api/boards`
+
+    curl -X POST \
+    http://localhost:8000/api/boards \
+    -H 'Accept: application/json' \
+    -H 'Authorization: Bearer 4|UT3G3GunUewODFluTXJbWpIGAXv4a0FhT315rsuW' \
+
+#### Response
+
+    HTTP/1.1 201 Created
+    Status: 200 Created
+    Connection: close
+    Content-Type: application/json
+
+    "Board created"
+
 ## Tests
 
 Run
