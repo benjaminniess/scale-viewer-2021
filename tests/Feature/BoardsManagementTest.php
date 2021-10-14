@@ -19,7 +19,7 @@ class BoardsManagementTest extends TestCase
 
         $response = $this->actingAs($user)->postJson('/api/boards', ['title' => 'My board title', 'description' => 'My board description']);
 
-        $response->assertStatus(201);
+        $response->assertStatus(201)->assertJsonFragment(['title' => 'My board title', 'description' => 'My board description']);
         $this->get('/api/boards')->assertJsonCount(1);
     }
 
