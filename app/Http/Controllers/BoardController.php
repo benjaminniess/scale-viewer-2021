@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Board;
+use App\Models\Number;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -34,6 +35,24 @@ class BoardController extends Controller
 
         $board->save();
 
-        return response('Board created', 201);
+        return response($board, 201);
+    }
+
+    public function storeNumber(Board $board, Request $request)
+    {
+        $request->validate([
+            'value' => ['required', 'max:15'],
+            'description' => 'required',
+        ]);
+
+        $number = new Number();
+
+        $number->value = $request->value;
+        $number->description = $request->description;
+
+        $board->numbers()->save($number);
+        $board->refresh();
+
+        return response($board, 201);
     }
 }

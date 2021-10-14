@@ -251,7 +251,51 @@ Run the migration command optionally with the `--seed` param
     Connection: close
     Content-Type: application/json
 
-    "Board created"
+    {
+        "title": "My board title",
+        "description": "My board description",
+        "user_id": 17,
+        "updated_at": "2021-10-14T06:25:16.000000Z",
+        "created_at": "2021-10-14T06:25:16.000000Z",
+        "id": 11
+    }
+
+### Add a number to a board
+
+#### Request
+
+`POST /api/boards/XXX/numbers`
+
+    curl -X POST \
+    http://localhost:8000/api/boards/1234 \
+    -H 'Accept: application/json' \
+    -H 'Authorization: Bearer 4|UT3G3GunUewODFluTXJbWpIGAXv4a0FhT315rsuW' \
+
+#### Response
+
+    HTTP/1.1 201 Created
+    Status: 200 Created
+    Connection: close
+    Content-Type: application/json
+
+    {
+        "title": "My board title",
+        "description": "My board description",
+        "user_id": 17,
+        "updated_at": "2021-10-14T06:25:16.000000Z",
+        "created_at": "2021-10-14T06:25:16.000000Z",
+        "id": 11
+        "numbers": [
+            {
+                "id": 12,
+                "value": 1234,
+                "description": "number of tests",
+                "board_id": 11,
+                "created_at": "2021-10-14T06:26:28.000000Z",
+                "updated_at": "2021-10-14T06:26:28.000000Z"
+            }
+        ]
+    }
 
 ## Tests
 

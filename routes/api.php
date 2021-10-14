@@ -25,3 +25,4 @@ Route::get('boards', [BoardController::class, 'index']);
 Route::get('boards/{board}', [BoardController::class, 'show']);
 
 Route::middleware('auth:sanctum')->post('boards', [BoardController::class, 'store']);
+Route::middleware('auth:sanctum')->post('boards/{board}/numbers', [BoardController::class, 'storeNumber']);
