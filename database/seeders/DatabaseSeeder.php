@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 
 use App\Models\Board;
-use App\Models\Number;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
