@@ -15,7 +15,6 @@ single board.
 
 ### Boards
 
-- Update board
 - Delete board
 - Pagination
 
@@ -263,7 +262,7 @@ Run the migration command optionally with the `--seed` param
 
 #### Request
 
-`POST /api/boards/12`
+`PUT /api/boards/12`
 
     curl -X PUT \
     http://localhost:8000/api/boards \
