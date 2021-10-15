@@ -38,6 +38,21 @@ class BoardController extends Controller
         return response($board, 201);
     }
 
+	public function update(Board $board, Request $request) {
+		$request->validate([
+			'title' => ['required', 'max:90'],
+			'description' => 'required',
+		]);
+
+		$board->title = $request->title;
+		$board->description = $request->description;
+
+		$board->save();
+		$board->refresh();
+
+		return response($board, 200);
+	}
+
     public function storeNumber(Board $board, Request $request)
     {
         $request->validate([

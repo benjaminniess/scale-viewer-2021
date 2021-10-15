@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Board;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -59,4 +60,12 @@ class BoardsManagementTest extends TestCase
 
         $response->assertStatus(401);
     }
+
+	public function test_a_user_can_edit_a_board() {
+		$board = Board::factory()->for(User::factory())->create();
+
+		$response = $this->actingAs(User::find($board->user_id))->putJson('/api/boards/' . $board->id, ['title' => 'My updated title', 'description' => 'My board description']);
+
+		$response->assertStatus(200)->assertJsonFragment(['id' => $board->id, 'title' => 'My updated title']);
+	}
 }

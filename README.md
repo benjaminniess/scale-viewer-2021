@@ -21,7 +21,6 @@ single board.
 
 ### Numbers
 
-- Add numbers
 - Update numbers
 - Reorder numbers
 - Delete numbers
@@ -247,7 +246,7 @@ Run the migration command optionally with the `--seed` param
 #### Response
 
     HTTP/1.1 201 Created
-    Status: 200 Created
+    Status: 201 Created
     Connection: close
     Content-Type: application/json
 
@@ -258,6 +257,33 @@ Run the migration command optionally with the `--seed` param
         "updated_at": "2021-10-14T06:25:16.000000Z",
         "created_at": "2021-10-14T06:25:16.000000Z",
         "id": 11
+    }
+
+### Update an existing board
+
+#### Request
+
+`POST /api/boards/12`
+
+    curl -X PUT \
+    http://localhost:8000/api/boards \
+    -H 'Accept: application/json' \
+    -H 'Authorization: Bearer 4|UT3G3GunUewODFluTXJbWpIGAXv4a0FhT315rsuW' \
+
+#### Response
+
+    HTTP/1.1 200 OK
+    Status: 200 OK
+    Connection: close
+    Content-Type: application/json
+
+    {
+        "title": "My updated board title",
+        "description": "My board description",
+        "user_id": 17,
+        "updated_at": "2021-10-14T06:25:16.000000Z",
+        "created_at": "2021-10-14T06:25:16.000000Z",
+        "id": 12
     }
 
 ### Add a number to a board
@@ -274,7 +300,7 @@ Run the migration command optionally with the `--seed` param
 #### Response
 
     HTTP/1.1 201 Created
-    Status: 200 Created
+    Status: 201 Created
     Connection: close
     Content-Type: application/json
 
