@@ -241,6 +241,8 @@ Run the migration command optionally with the `--seed` param
     http://localhost:8000/api/boards \
     -H 'Accept: application/json' \
     -H 'Authorization: Bearer 4|UT3G3GunUewODFluTXJbWpIGAXv4a0FhT315rsuW' \
+    -F title=My board title \
+    -F description=My board description \
 
 #### Response
 
@@ -268,6 +270,8 @@ Run the migration command optionally with the `--seed` param
     http://localhost:8000/api/boards \
     -H 'Accept: application/json' \
     -H 'Authorization: Bearer 4|UT3G3GunUewODFluTXJbWpIGAXv4a0FhT315rsuW' \
+    -F title=My updated board title \
+    -F description=My board description \
 
 #### Response
 
@@ -295,6 +299,8 @@ Run the migration command optionally with the `--seed` param
     http://localhost:8000/api/boards/1234 \
     -H 'Accept: application/json' \
     -H 'Authorization: Bearer 4|UT3G3GunUewODFluTXJbWpIGAXv4a0FhT315rsuW' \
+    -F value=1234 \
+    -F description=My test number \
 
 #### Response
 
@@ -314,7 +320,46 @@ Run the migration command optionally with the `--seed` param
             {
                 "id": 12,
                 "value": 1234,
-                "description": "number of tests",
+                "description": "My test number,
+                "board_id": 11,
+                "created_at": "2021-10-14T06:26:28.000000Z",
+                "updated_at": "2021-10-14T06:26:28.000000Z"
+            }
+        ]
+    }
+
+### Update a number to a board
+
+#### Request
+
+`PUT /api/boards/XXX/numbers/YYY`
+
+    curl -X PUT \
+    http://localhost:8000/api/boards/1234/numbers/5678 \
+    -H 'Accept: application/json' \
+    -H 'Authorization: Bearer 4|UT3G3GunUewODFluTXJbWpIGAXv4a0FhT315rsuW' \
+    -F value=1234 \
+    -F description=My test number \
+
+#### Response
+
+    HTTP/1.1 200 OK
+    Status: 200 OK
+    Connection: close
+    Content-Type: application/json
+
+    {
+        "title": "My board title",
+        "description": "My board description",
+        "user_id": 17,
+        "updated_at": "2021-10-14T06:25:16.000000Z",
+        "created_at": "2021-10-14T06:25:16.000000Z",
+        "id": 11
+        "numbers": [
+            {
+                "id": 12,
+                "value": 1234,
+                "description": "My updated test number",
                 "board_id": 11,
                 "created_at": "2021-10-14T06:26:28.000000Z",
                 "updated_at": "2021-10-14T06:26:28.000000Z"

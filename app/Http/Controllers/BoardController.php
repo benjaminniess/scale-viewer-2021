@@ -38,20 +38,21 @@ class BoardController extends Controller
         return response($board, 201);
     }
 
-	public function update(Board $board, Request $request) {
-		$request->validate([
-			'title' => ['required', 'max:90'],
-			'description' => 'required',
-		]);
+    public function update(Board $board, Request $request)
+    {
+        $request->validate([
+            'title' => ['required', 'max:90'],
+            'description' => 'required',
+        ]);
 
-		$board->title = $request->title;
-		$board->description = $request->description;
+        $board->title = $request->title;
+        $board->description = $request->description;
 
-		$board->save();
-		$board->refresh();
+        $board->save();
+        $board->refresh();
 
-		return response($board, 200);
-	}
+        return response($board, 200);
+    }
 
     public function storeNumber(Board $board, Request $request)
     {
@@ -69,5 +70,21 @@ class BoardController extends Controller
         $board->refresh();
 
         return response($board, 201);
+    }
+
+    public function updateNumber(Board $board, Number $number, Request $request)
+    {
+	    $request->validate([
+		    'value' => ['required', 'max:15'],
+		    'description' => 'required',
+	    ]);
+
+	    $number->value = $request->value;
+	    $number->description = $request->description;
+
+	    $board->numbers()->save($number);
+	    $board->refresh();
+
+	    return response($board, 200);
     }
 }
