@@ -66,6 +66,16 @@ class BoardsManagementTest extends TestCase
 
 		$response = $this->actingAs(User::find($board->user_id))->putJson('/api/boards/' . $board->id, ['title' => 'My updated title', 'description' => 'My board description']);
 
-		$response->assertStatus(200)->assertJsonFragment(['id' => $board->id, 'title' => 'My updated title']);
-	}
+        $response->assertStatus(200)->assertJsonFragment(['id' => $board->id, 'title' => 'My updated title']);
+    }
+
+    public function test_a_user_cant_update_other_users_board()
+    {
+	    $board = Board::factory()->for(User::factory())->create();
+		$maliciousUser = User::factory()->create();
+
+	    $response = $this->actingAs($maliciousUser)->putJson('/api/boards/' . $board->id, ['title' => 'My updated title', 'description' => 'My board description']);
+
+	    $response->assertStatus(401);
+    }
 }

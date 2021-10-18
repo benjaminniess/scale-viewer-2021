@@ -40,6 +40,10 @@ class BoardController extends Controller
 
     public function update(Board $board, Request $request)
     {
+        if ($board->user->id !== Auth::id()) {
+            return response('wrong user', 401);
+        }
+
         $request->validate([
             'title' => ['required', 'max:90'],
             'description' => 'required',
@@ -56,6 +60,10 @@ class BoardController extends Controller
 
     public function storeNumber(Board $board, Request $request)
     {
+        if ($board->user->id !== Auth::id()) {
+            return response('wrong user', 401);
+        }
+        
         $request->validate([
             'value' => ['required', 'max:15'],
             'description' => 'required',
@@ -74,10 +82,14 @@ class BoardController extends Controller
 
     public function updateNumber(Board $board, Number $number, Request $request)
     {
-	    $request->validate([
-		    'value' => ['required', 'max:15'],
-		    'description' => 'required',
-	    ]);
+        if ($board->user->id !== Auth::id()) {
+            return response('wrong user', 401);
+        }
+
+        $request->validate([
+            'value'       => ['required', 'max:15'],
+            'description' => 'required',
+        ]);
 
 	    $number->value = $request->value;
 	    $number->description = $request->description;

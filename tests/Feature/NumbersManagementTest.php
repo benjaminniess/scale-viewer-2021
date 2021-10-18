@@ -22,6 +22,19 @@ class NumbersManagementTest extends TestCase
         $this->get('/api/boards/' . $board->id)->assertJsonPath('numbers.0.value', 1234);
     }
 
+    public function test_a_user_cant_add_a_number_from_another_user_board()
+    {
+        $board         = Board::factory()->for(User::factory())->create();
+        $maliciousUser = User::factory()->create();
+
+        $response = $this->actingAs($maliciousUser)->postJson('/api/boards/'.$board->id.'/numbers', [
+            'value'       => 1234,
+            'description' => 'Number of something'
+        ]);
+
+        $response->assertStatus(401);
+    }
+
     public function test_a_user_can_update_a_number_from_its_board()
     {
         $board = Board::factory()->for(User::factory())->hasNumbers(Number::factory(['value' => 1234, 'description' => 'Initial description']))->create();
@@ -30,5 +43,22 @@ class NumbersManagementTest extends TestCase
 
         $response->assertStatus(200)->assertJsonFragment(['value' => 5678, 'description' => 'Updated description']);
         $this->get('/api/boards/' . $board->id)->assertJsonPath('numbers.0.value', 5678);
+    }
+
+    public function test_a_user_cant_update_a_number_from_another_user_board()
+    {
+        $board         = Board::factory()->for(User::factory())->hasNumbers(Number::factory([
+            'value'       => 1234,
+            'description' => 'Initial description'
+        ]))->create();
+        $maliciousUser = User::factory()->create();
+
+        $response = $this->actingAs($maliciousUser)->putJson('/api/boards/'.$board->id.'/numbers/'.$board->numbers->first()->id,
+            [
+                'value'       => 5678,
+                'description' => 'Updated description'
+            ]);
+
+        $response->assertStatus(401);
     }
 }
