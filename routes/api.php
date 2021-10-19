@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\NumberController;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Http\Controllers\RegisteredUserController;
 use App\Http\Controllers\UsersController;
@@ -25,7 +26,7 @@ Route::get('boards', [BoardController::class, 'index']);
 Route::get('boards/{board}', [BoardController::class, 'show']);
 
 Route::middleware('auth:sanctum')->post('boards', [BoardController::class, 'store']);
-Route::middleware('auth:sanctum')->post('boards/{board}/numbers', [BoardController::class, 'storeNumber']);
+Route::middleware('auth:sanctum')->post('boards/{board}/numbers', [NumberController::class, 'store']);
 
 Route::middleware('auth:sanctum')->put('boards/{board}', [BoardController::class, 'update']);
-Route::middleware('auth:sanctum')->put('boards/{board}/numbers/{number}', [BoardController::class, 'updateNumber']);
+Route::middleware('auth:sanctum')->put('boards/{board}/numbers/{number}', [NumberController::class, 'update']);
