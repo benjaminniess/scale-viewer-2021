@@ -76,6 +76,6 @@ class BoardsManagementTest extends TestCase
 
 	    $response = $this->actingAs($maliciousUser)->putJson('/api/boards/' . $board->id, ['title' => 'My updated title', 'description' => 'My board description']);
 
-	    $response->assertStatus(401);
+        $response->assertStatus(403);
     }
 }
