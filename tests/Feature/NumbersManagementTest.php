@@ -12,17 +12,18 @@ class NumbersManagementTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_a_user_can_add_a_number_to_its_board()
+    public function test_a_user_can_add_a_number_to_its_board(): void
     {
         $board = Board::factory()->for(User::factory())->create();
 
-        $response = $this->actingAs(User::find($board->user_id))->postJson('/api/boards/' . $board->id . '/numbers', ['value' => 1234, 'description' => 'Number of something']);
+        $response = $this->actingAs(User::find($board->user_id))->postJson('/api/boards/'.$board->id.'/numbers',
+            ['value' => 1234, 'description' => 'Number of something']);
 
         $response->assertStatus(201)->assertJsonFragment(['value' => 1234, 'description' => 'Number of something']);
-        $this->get('/api/boards/' . $board->id)->assertJsonPath('numbers.0.value', 1234);
+        $this->get('/api/boards/'.$board->id)->assertJsonPath('numbers.0.value', 1234);
     }
 
-    public function test_a_user_cant_add_a_number_from_another_user_board()
+    public function test_a_user_cant_add_a_number_from_another_user_board(): void
     {
         $board         = Board::factory()->for(User::factory())->create();
         $maliciousUser = User::factory()->create();
@@ -35,17 +36,21 @@ class NumbersManagementTest extends TestCase
         $response->assertStatus(401);
     }
 
-    public function test_a_user_can_update_a_number_from_its_board()
+    public function test_a_user_can_update_a_number_from_its_board(): void
     {
-        $board = Board::factory()->for(User::factory())->hasNumbers(Number::factory(['value' => 1234, 'description' => 'Initial description']))->create();
+        $board = Board::factory()->for(User::factory())->hasNumbers(Number::factory([
+            'value'       => 1234,
+            'description' => 'Initial description'
+        ]))->create();
 
-        $response = $this->actingAs(User::find($board->user_id))->putJson('/api/boards/' . $board->id . '/numbers/' . $board->numbers->first()->id, ['value' => 5678, 'description' => 'Updated description']);
+        $response = $this->actingAs(User::find($board->user_id))->putJson('/api/boards/'.$board->id.'/numbers/'.$board->numbers->first()->id,
+            ['value' => 5678, 'description' => 'Updated description']);
 
         $response->assertStatus(200)->assertJsonFragment(['value' => 5678, 'description' => 'Updated description']);
-        $this->get('/api/boards/' . $board->id)->assertJsonPath('numbers.0.value', 5678);
+        $this->get('/api/boards/'.$board->id)->assertJsonPath('numbers.0.value', 5678);
     }
 
-    public function test_a_user_cant_update_a_number_from_another_user_board()
+    public function test_a_user_cant_update_a_number_from_another_user_board(): void
     {
         $board         = Board::factory()->for(User::factory())->hasNumbers(Number::factory([
             'value'       => 1234,
@@ -62,7 +67,7 @@ class NumbersManagementTest extends TestCase
         $response->assertStatus(401);
     }
 
-    public function test_numbers_are_deleted_using_cascading_delete()
+    public function test_numbers_are_deleted_using_cascading_delete(): void
     {
         $board = Board::factory()->for(User::factory())->hasNumbers(10)->create();
 

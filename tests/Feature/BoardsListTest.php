@@ -21,8 +21,8 @@ class BoardsListTest extends TestCase
     public function test_boards_list(): void
     {
         Board::factory()
-            ->count(3)
-            ->create();
+             ->count(3)
+             ->create();
 
         $response = $this->get('/api/boards');
 

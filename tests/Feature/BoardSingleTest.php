@@ -16,7 +16,7 @@ class BoardSingleTest extends TestCase
     {
         $board = Board::factory()->for(User::factory())->create();
 
-        $response = $this->get('/api/boards/' . $board->id);
+        $response = $this->get('/api/boards/'.$board->id);
 
         $response->assertStatus(200);
         $response->assertJsonFragment(['id' => $board->id, 'title' => $board->title]);
@@ -26,7 +26,7 @@ class BoardSingleTest extends TestCase
     {
         $board = Board::factory()->for(User::factory())->create();
 
-        $response = $this->get('/api/boards/' . $board->id);
+        $response = $this->get('/api/boards/'.$board->id);
 
         $response->assertJsonFragment(['numbers' => []]);
     }
@@ -35,7 +35,7 @@ class BoardSingleTest extends TestCase
     {
         $board = Board::factory()->for(User::factory())->hasNumbers(10)->create();
 
-        $response = $this->get('/api/boards/' . $board->id);
+        $response = $this->get('/api/boards/'.$board->id);
 
         $response->assertJsonCount(10, 'numbers');
     }
