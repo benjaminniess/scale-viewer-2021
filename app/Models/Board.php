@@ -11,6 +11,18 @@ class Board extends Model
 
     protected $with = ['numbers'];
 
+    public static function boot()
+    {
+        parent::boot();
+
+        // Cascade delete for associated content
+        self::deleting(function (Board $board): void {
+            $board->numbers()->each(function (Number $number): void {
+                $number->delete();
+            });
+        });
+    }
+
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class);

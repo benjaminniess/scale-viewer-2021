@@ -61,4 +61,14 @@ class NumbersManagementTest extends TestCase
 
         $response->assertStatus(401);
     }
+
+    public function test_numbers_are_deleted_using_cascading_delete()
+    {
+        $board = Board::factory()->for(User::factory())->hasNumbers(10)->create();
+
+        $this->assertCount(10, Number::all());
+        $this->actingAs(User::find($board->user_id))->deleteJson('/api/boards/'.$board->id);
+
+        $this->assertCount(0, Number::all());
+    }
 }
