@@ -57,4 +57,15 @@ class BoardController extends Controller
 
         return response($board, 200);
     }
+
+    public function delete(Board $board, Request $request)
+    {
+        if ($request->user()->cannot('delete', $board)) {
+            abort(403);
+        }
+
+        $board->delete();
+
+        return response('Board deleted.', 204);
+    }
 }

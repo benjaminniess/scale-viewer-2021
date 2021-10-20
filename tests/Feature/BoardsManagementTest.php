@@ -78,4 +78,25 @@ class BoardsManagementTest extends TestCase
 
         $response->assertStatus(403);
     }
+
+    public function test_a_user_can_delete_a_board()
+    {
+        $board = Board::factory()->for(User::factory())->create();
+
+        $this->get('/api/boards')->assertJsonCount(1);
+
+        $response = $this->actingAs(User::find($board->user_id))->deleteJson('/api/boards/'.$board->id);
+        $response->assertStatus(204);
+
+        $this->get('/api/boards')->assertJsonCount(0);
+    }
+
+    public function test_a_user_cant_delete_another_user_board()
+    {
+        $board         = Board::factory()->for(User::factory())->create();
+        $maliciousUser = User::factory()->create();
+
+        $response = $this->actingAs($maliciousUser)->deleteJson('/api/boards/'.$board->id);
+        $response->assertStatus(403);
+    }
 }

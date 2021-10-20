@@ -22,4 +22,9 @@ class BoardPolicy
     {
         return $user->id === $board->user_id;
     }
+
+    public function delete(User $user, Board $board)
+    {
+        return $user->id === $board->user_id;
+    }
 }
