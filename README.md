@@ -41,6 +41,10 @@ Copy the `.env.example` file and make the necessary changes that fit your databa
 
 `cp .env.example .env`
 
+Run this command to generate an app key
+
+`php artisan key:generate`
+
 Run the migration command optionally with the `--seed` param
 
 `php artisan migrate:fresh --seed`
@@ -368,6 +372,10 @@ Run the migration command optionally with the `--seed` param
     }
 
 ## Tests
+
+Create a .env.testing file with a different database connection
+
+`cp .env.example .env.testing`
 
 Run
 
