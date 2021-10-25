@@ -11,8 +11,8 @@ class NumberController extends Controller
 {
     public function store(Board $board, Request $request)
     {
-        if ($board->user->id !== Auth::id()) {
-            return response('wrong user', 401);
+        if ($request->user()->cannot('update', $board)) {
+            abort(403);
         }
 
         $request->validate([
@@ -33,8 +33,8 @@ class NumberController extends Controller
 
     public function update(Board $board, Number $number, Request $request)
     {
-        if ($board->user->id !== Auth::id()) {
-            return response('wrong user', 403);
+        if ($request->user()->cannot('update', $number)) {
+            abort(403);
         }
 
         $request->validate([
@@ -53,8 +53,8 @@ class NumberController extends Controller
 
     public function delete(Board $board, Number $number, Request $request)
     {
-        if ($board->user->id !== Auth::id()) {
-            return response('wrong user', 403);
+        if ($request->user()->cannot('delete', $number)) {
+            abort(403);
         }
 
         $number->delete();
