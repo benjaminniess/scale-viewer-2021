@@ -15,14 +15,11 @@ single board.
 
 ### Boards
 
-- Delete board
 - Pagination
 
 ### Numbers
 
-- Update numbers
 - Reorder numbers
-- Delete numbers
 - Add a "display value" to numbers
 
 ### Generic
