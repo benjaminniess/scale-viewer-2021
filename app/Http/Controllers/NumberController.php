@@ -34,7 +34,7 @@ class NumberController extends Controller
     public function update(Board $board, Number $number, Request $request)
     {
         if ($board->user->id !== Auth::id()) {
-            return response('wrong user', 401);
+            return response('wrong user', 403);
         }
 
         $request->validate([
@@ -49,5 +49,16 @@ class NumberController extends Controller
         $board->refresh();
 
         return response($board, 200);
+    }
+
+    public function delete(Board $board, Number $number, Request $request)
+    {
+        if ($board->user->id !== Auth::id()) {
+            return response('wrong user', 403);
+        }
+
+        $number->delete();
+
+        return response('Number deleted', 204);
     }
 }

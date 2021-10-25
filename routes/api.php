@@ -32,3 +32,4 @@ Route::middleware('auth:sanctum')->put('boards/{board}', [BoardController::class
 Route::middleware('auth:sanctum')->put('boards/{board}/numbers/{number}', [NumberController::class, 'update']);
 
 Route::middleware('auth:sanctum')->delete('boards/{board}', [BoardController::class, 'delete']);
+Route::middleware('auth:sanctum')->delete('boards/{board}/numbers/{number}', [NumberController::class, 'delete']);

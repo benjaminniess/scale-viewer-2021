@@ -33,7 +33,7 @@ class NumbersManagementTest extends TestCase
             'description' => 'Number of something'
         ]);
 
-        $response->assertStatus(401);
+        $response->assertStatus(403);
     }
 
     public function test_a_user_can_update_a_number_from_its_board(): void
@@ -64,7 +64,7 @@ class NumbersManagementTest extends TestCase
                 'description' => 'Updated description'
             ]);
 
-        $response->assertStatus(401);
+        $response->assertStatus(403);
     }
 
     public function test_numbers_are_deleted_using_cascading_delete(): void
@@ -75,5 +75,25 @@ class NumbersManagementTest extends TestCase
         $this->actingAs(User::find($board->user_id))->deleteJson('/api/boards/'.$board->id);
 
         $this->assertCount(0, Number::all());
+    }
+
+    public function test_a_user_can_delete_a_number_from_its_board(): void
+    {
+        $board = Board::factory()->for(User::factory())->hasNumbers()->create();
+
+        $response = $this->actingAs(User::find($board->user_id))->deleteJson('/api/boards/'.$board->id.'/numbers/'.$board->numbers->first()->id);
+
+        $response->assertStatus(204);
+        $this->get('/api/boards/'.$board->id)->assertJsonPath('numbers', []);
+    }
+
+    public function test_a_user_cant_delete_a_number_from_another_user_board(): void
+    {
+        $board         = Board::factory()->for(User::factory())->hasNumbers()->create();
+        $maliciousUser = User::factory()->create();
+
+        $response = $this->actingAs($maliciousUser)->deleteJson('/api/boards/'.$board->id.'/numbers/'.$board->numbers->first()->id);
+
+        $response->assertStatus(403);
     }
 }
