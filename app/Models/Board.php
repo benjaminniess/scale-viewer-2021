@@ -11,6 +11,10 @@ class Board extends Model
 
     protected $with = ['numbers'];
 
+    protected $casts = [
+        'user_id' => 'integer'
+    ];
+
     public static function boot()
     {
         parent::boot();
