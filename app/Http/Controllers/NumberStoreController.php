@@ -2,23 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\NumberStoreRequest;
 use App\Models\Board;
 use App\Models\Number;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class NumberStoreController extends Controller
 {
-    public function store(Board $board, Request $request): Response
+    public function store(Board $board, NumberStoreRequest $request): Response
     {
         if ($request->user()->cannot('update', $board)) {
             abort(403);
         }
-
-        $request->validate([
-            'value' => ['required', 'max:15'],
-            'description' => 'required',
-        ]);
 
         $number = new Number();
 
