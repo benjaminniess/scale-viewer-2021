@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Boards;
 
+use App\Http\Controllers\Controller;
 use App\Models\Board;
 
 class BoardShowController extends Controller

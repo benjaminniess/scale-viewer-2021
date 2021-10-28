@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Numbers;
 
+use App\Http\Controllers\Controller;
 use App\Models\Board;
 use App\Models\Number;
 use Illuminate\Http\Request;

@@ -1,18 +1,18 @@
 <?php
 
-use App\Http\Controllers\NumberUpdateController;
-use \App\Http\Controllers\NumberStoreController;
-use \App\Http\Controllers\NumberDeleteController;
+use App\Http\Controllers\Numbers\NumberUpdateController;
+use \App\Http\Controllers\Numbers\NumberStoreController;
+use \App\Http\Controllers\Numbers\NumberDeleteController;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Http\Controllers\RegisteredUserController;
-use App\Http\Controllers\UsersShowController;
-use App\Http\Controllers\UsersLoginController;
-use App\Http\Controllers\UsersLogoutController;
-use App\Http\Controllers\BoardDeleteController;
-use App\Http\Controllers\BoardIndexController;
-use App\Http\Controllers\BoardShowController;
-use App\Http\Controllers\BoardStoreController;
-use App\Http\Controllers\BoardUpdateController;
+use App\Http\Controllers\Users\UsersShowController;
+use App\Http\Controllers\Users\UsersLoginController;
+use App\Http\Controllers\Users\UsersLogoutController;
+use App\Http\Controllers\Boards\BoardDeleteController;
+use App\Http\Controllers\Boards\BoardIndexController;
+use App\Http\Controllers\Boards\BoardShowController;
+use App\Http\Controllers\Boards\BoardStoreController;
+use App\Http\Controllers\Boards\BoardUpdateController;
 
 /*
 |--------------------------------------------------------------------------
