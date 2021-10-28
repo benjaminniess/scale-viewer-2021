@@ -2,19 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 
-class UsersController extends Controller
+class UsersLoginController extends Controller
 {
-    public static function show(Request $request)
-    {
-        return $request->user();
-    }
-
     public static function login(Request $request)
     {
         $request->validate([
@@ -32,12 +26,5 @@ class UsersController extends Controller
         }
 
         return $user->createToken($request->device_name)->plainTextToken;
-    }
-
-    public static function logout(Request $request): Response
-    {
-        $request->user()->currentAccessToken()->delete();
-
-        return response('logged-out', 200);
     }
 }

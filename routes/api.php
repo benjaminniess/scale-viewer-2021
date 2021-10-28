@@ -5,7 +5,9 @@ use \App\Http\Controllers\NumberStoreController;
 use \App\Http\Controllers\NumberDeleteController;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Http\Controllers\RegisteredUserController;
-use App\Http\Controllers\UsersController;
+use App\Http\Controllers\UsersShowController;
+use App\Http\Controllers\UsersLoginController;
+use App\Http\Controllers\UsersLogoutController;
 use App\Http\Controllers\BoardDeleteController;
 use App\Http\Controllers\BoardIndexController;
 use App\Http\Controllers\BoardShowController;
@@ -23,10 +25,10 @@ use App\Http\Controllers\BoardUpdateController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', [UsersController::class, 'show']);
+Route::middleware('auth:sanctum')->get('/user', [UsersShowController::class, 'show']);
 Route::middleware('guest')->post('/register', [RegisteredUserController::class, 'store']);
-Route::middleware('guest')->post('/login', [UsersController::class, 'login']);
-Route::middleware('auth:sanctum')->get('/logout', [UsersController::class, 'logout']);
+Route::middleware('guest')->post('/login', [UsersLoginController::class, 'login']);
+Route::middleware('auth:sanctum')->get('/logout', [UserslogoutController::class, 'logout']);
 
 Route::get('boards', [BoardIndexController::class, 'index']);
 Route::get('boards/{board}', [BoardShowController::class, 'show']);
