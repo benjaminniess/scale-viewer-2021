@@ -4,7 +4,11 @@ use App\Http\Controllers\NumberController;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Http\Controllers\RegisteredUserController;
 use App\Http\Controllers\UsersController;
-use App\Http\Controllers\BoardController;
+use App\Http\Controllers\BoardDeleteController;
+use App\Http\Controllers\BoardIndexController;
+use App\Http\Controllers\BoardShowController;
+use App\Http\Controllers\BoardStoreController;
+use App\Http\Controllers\BoardUpdateController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,14 +26,14 @@ Route::middleware('guest')->post('/register', [RegisteredUserController::class, 
 Route::middleware('guest')->post('/login', [UsersController::class, 'login']);
 Route::middleware('auth:sanctum')->get('/logout', [UsersController::class, 'logout']);
 
-Route::get('boards', [BoardController::class, 'index']);
-Route::get('boards/{board}', [BoardController::class, 'show']);
+Route::get('boards', [BoardIndexController::class, 'index']);
+Route::get('boards/{board}', [BoardShowController::class, 'show']);
 
-Route::middleware('auth:sanctum')->post('boards', [BoardController::class, 'store']);
+Route::middleware('auth:sanctum')->post('boards', [BoardStoreController::class, 'store']);
 Route::middleware('auth:sanctum')->post('boards/{board}/numbers', [NumberController::class, 'store']);
 
-Route::middleware('auth:sanctum')->put('boards/{board}', [BoardController::class, 'update']);
+Route::middleware('auth:sanctum')->put('boards/{board}', [BoardUpdateController::class, 'update']);
 Route::middleware('auth:sanctum')->put('boards/{board}/numbers/{number}', [NumberController::class, 'update']);
 
-Route::middleware('auth:sanctum')->delete('boards/{board}', [BoardController::class, 'delete']);
+Route::middleware('auth:sanctum')->delete('boards/{board}', [BoardDeleteController::class, 'delete']);
 Route::middleware('auth:sanctum')->delete('boards/{board}/numbers/{number}', [NumberController::class, 'delete']);
