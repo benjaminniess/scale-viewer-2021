@@ -1,6 +1,8 @@
 <?php
 
-use App\Http\Controllers\NumberController;
+use App\Http\Controllers\NumberUpdateController;
+use \App\Http\Controllers\NumberStoreController;
+use \App\Http\Controllers\NumberDeleteController;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Http\Controllers\RegisteredUserController;
 use App\Http\Controllers\UsersController;
@@ -30,10 +32,10 @@ Route::get('boards', [BoardIndexController::class, 'index']);
 Route::get('boards/{board}', [BoardShowController::class, 'show']);
 
 Route::middleware('auth:sanctum')->post('boards', [BoardStoreController::class, 'store']);
-Route::middleware('auth:sanctum')->post('boards/{board}/numbers', [NumberController::class, 'store']);
+Route::middleware('auth:sanctum')->post('boards/{board}/numbers', [NumberStoreController::class, 'store']);
 
 Route::middleware('auth:sanctum')->put('boards/{board}', [BoardUpdateController::class, 'update']);
-Route::middleware('auth:sanctum')->put('boards/{board}/numbers/{number}', [NumberController::class, 'update']);
+Route::middleware('auth:sanctum')->put('boards/{board}/numbers/{number}', [NumberUpdateController::class, 'update']);
 
 Route::middleware('auth:sanctum')->delete('boards/{board}', [BoardDeleteController::class, 'delete']);
-Route::middleware('auth:sanctum')->delete('boards/{board}/numbers/{number}', [NumberController::class, 'delete']);
+Route::middleware('auth:sanctum')->delete('boards/{board}/numbers/{number}', [NumberDeleteController::class, 'delete']);
