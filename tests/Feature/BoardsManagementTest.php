@@ -79,6 +79,16 @@ class BoardsManagementTest extends TestCase
         $response->assertStatus(200)->assertJsonFragment(['id' => $board->id, 'title' => 'My updated title']);
     }
 
+    public function test_a_user_cant_edit_a_board_with_missing_params(): void
+    {
+        $board = Board::factory()->for(User::factory())->create();
+
+        $response = $this->actingAs(User::find($board->user_id))->putJson('/api/boards/' . $board->id, ['title' => 'My updated title']);
+
+        $response->assertStatus(422);
+        $response->assertJsonPath('errors.description', ['The description field is required.']);
+    }
+
     public function test_a_user_cant_update_other_users_board(): void
     {
         $board         = Board::factory()->for(User::factory())->create();

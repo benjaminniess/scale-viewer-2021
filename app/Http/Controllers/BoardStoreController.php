@@ -2,20 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\BoardStoreRequest;
 use App\Models\Board;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 
 class BoardStoreController extends Controller
 {
-    public function store(Request $request): Response
+    public function store(BoardStoreRequest $request): Response
     {
-        $request->validate([
-            'title' => ['required', 'max:90'],
-            'description' => 'required',
-        ]);
-
         $board = new Board();
 
         $board->title = $request->title;
