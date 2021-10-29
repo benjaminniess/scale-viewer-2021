@@ -35,4 +35,18 @@ class BoardRepository implements BoardRepositoryInterface
 
         return $board;
     }
+
+    public function update(int $boardId, array $boardProperties): Board
+    {
+        $board = self::findByID($boardId);
+
+        foreach ($boardProperties as $propertyKey => $value) {
+            $board->$propertyKey = $value;
+        }
+
+        $board->save();
+        $board->refresh();
+
+        return $board;
+    }
 }

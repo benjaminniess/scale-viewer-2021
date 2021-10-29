@@ -14,4 +14,6 @@ interface BoardRepositoryInterface
     public function deleteById(int $boardId): void;
 
     public function store(array $boardProperties): Board;
+
+    public function update(int $boardId, array $boardProperties): Board;
 }
