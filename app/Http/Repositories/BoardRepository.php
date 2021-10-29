@@ -17,4 +17,9 @@ class BoardRepository implements BoardRepositoryInterface
     {
         return Board::find($boardId);
     }
+
+    public function deleteById(int $boardId): void
+    {
+        Board::find($boardId)->delete();
+    }
 }

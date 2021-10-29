@@ -10,4 +10,6 @@ interface BoardRepositoryInterface
     public function all(): Collection;
 
     public function findByID(int $boardId): Board;
+
+    public function deleteById(int $boardId): void;
 }
