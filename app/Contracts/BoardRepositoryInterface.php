@@ -12,4 +12,6 @@ interface BoardRepositoryInterface
     public function findByID(int $boardId): Board;
 
     public function deleteById(int $boardId): void;
+
+    public function store(array $boardProperties): Board;
 }

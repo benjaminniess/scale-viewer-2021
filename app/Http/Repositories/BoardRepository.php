@@ -22,4 +22,17 @@ class BoardRepository implements BoardRepositoryInterface
     {
         Board::find($boardId)->delete();
     }
+
+    public function store(array $boardProperties): Board
+    {
+        $board = new Board();
+
+        foreach ($boardProperties as $propertyKey => $value) {
+            $board->$propertyKey = $value;
+        }
+
+        $board->save();
+
+        return $board;
+    }
 }
