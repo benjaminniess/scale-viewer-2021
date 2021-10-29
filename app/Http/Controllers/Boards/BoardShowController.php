@@ -8,6 +8,8 @@ use App\Models\Board;
 
 class BoardShowController extends Controller
 {
+    private BoardRepositoryInterface $boardRepository;
+    
     public function __construct(BoardRepositoryInterface $boardRepository)
     {
         $this->boardRepository = $boardRepository;
