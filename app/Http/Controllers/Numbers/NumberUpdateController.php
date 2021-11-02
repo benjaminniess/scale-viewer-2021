@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Numbers;
 
+use App\Contracts\NumberRepositoryInterface;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\NumberUpdateRequest;
 use App\Models\Board;
@@ -10,18 +11,24 @@ use Illuminate\Http\Response;
 
 class NumberUpdateController extends Controller
 {
+    private NumberRepositoryInterface $numberRepository;
+
+    public function __construct(NumberRepositoryInterface $numberRepository)
+    {
+        $this->numberRepository = $numberRepository;
+    }
+
     public function update(Board $board, Number $number, NumberUpdateRequest $request): Response
     {
         if ($request->user()->cannot('update', $number)) {
             abort(403);
         }
 
-        $number->value = $request->value;
-        $number->description = $request->description;
+        $updatedBoard = $this->numberRepository->update($number->id, [
+            'value' => $request->value,
+            'description' => $request->description,
+        ]);
 
-        $board->numbers()->save($number);
-        $board->refresh();
-
-        return response($board, 200);
+        return response($updatedBoard, 200);
     }
 }

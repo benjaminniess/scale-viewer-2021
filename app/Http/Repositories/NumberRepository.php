@@ -7,7 +7,6 @@ use Illuminate\Support\Collection;
 
 class NumberRepository implements NumberRepositoryInterface
 {
-
     public function all(): Collection
     {
         return Number::get();
@@ -36,7 +35,7 @@ class NumberRepository implements NumberRepositoryInterface
         return $number;
     }
 
-    public function update(int $numberId, array $numberProperties): Number
+    public function update(int $numberId, array $numberProperties): Board
     {
         $number = self::findByID($numberId);
 
@@ -47,6 +46,9 @@ class NumberRepository implements NumberRepositoryInterface
         $number->save();
         $number->refresh();
 
-        return $number;
+        $number->board->numbers()->save($number);
+        $number->board->refresh();
+
+        return $number->board;
     }
 }
