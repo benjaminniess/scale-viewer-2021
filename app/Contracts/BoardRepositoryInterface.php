@@ -2,18 +2,18 @@
 
 namespace App\Contracts;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Models\Board;
 use Illuminate\Support\Collection;
 
 interface BoardRepositoryInterface
 {
     public function all(): Collection;
 
-    public function findByID(int $modelId): Model;
+    public function findByID(int $boardId): Board;
 
-    public function deleteById(int $modelId): void;
+    public function deleteById(int $boardId): void;
 
-    public function store(array $modelProperties): Model;
+    public function store(array $boardProperties): Board;
 
-    public function update(int $modelId, array $modelProperties): Model;
+    public function update(int $boardId, array $boardProperties): Board;
 }

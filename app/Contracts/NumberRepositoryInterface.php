@@ -3,18 +3,18 @@
 namespace App\Contracts;
 
 use App\Models\Board;
-use Illuminate\Database\Eloquent\Model;
+use App\Models\Number;
 use Illuminate\Support\Collection;
 
 interface NumberRepositoryInterface
 {
     public function all(): Collection;
 
-    public function findByID(int $modelId): Model;
+    public function findByID(int $numberId): Number;
 
-    public function deleteById(int $modelId): void;
+    public function deleteById(int $numberId): void;
 
-    public function store(Board $board, array $modelProperties): Model;
+    public function store(Board $board, array $numberProperties): Number;
 
-    public function update(int $modelId, array $modelProperties): Model;
+    public function update(int $numberId, array $numberProperties): Board;
 }
