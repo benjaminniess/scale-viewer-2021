@@ -1,6 +1,7 @@
 <?php namespace App\Http\Repositories;
 
 use App\Contracts\NumberRepositoryInterface;
+use App\Models\Board;
 use App\Models\Number;
 use Illuminate\Support\Collection;
 
@@ -22,15 +23,15 @@ class NumberRepository implements NumberRepositoryInterface
         Number::find($numberId)->delete();
     }
 
-    public function store(array $numberProperties): Number
+    public function store(Board $board, array $numberProperties): Number
     {
         $number = new Number();
 
-        foreach ($numberProperties as $propertyKey => $value) {
-            $number->$propertyKey = $value;
-        }
+        $number->value = $numberProperties['value'];
+        $number->description = $numberProperties['description'];
 
-        $number->save();
+        $board->numbers()->save($number);
+        $board->refresh();
 
         return $number;
     }
